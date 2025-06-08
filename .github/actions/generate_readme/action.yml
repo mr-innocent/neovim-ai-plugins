@@ -1,0 +1,25 @@
+name: "Generate README.md File"
+description: "Rebuilds the README.md From Scratch"
+inputs:
+  github_token:
+    description: "Some Personal Access Token. e.g. ghp_129387u12kj3123k"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+        cache: pip
+
+    - name: Install Dependencies
+      shell: bash
+      run: python -m pip install -r requirements.txt
+
+    - name: Generate README.md
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+      run: make generate_readme
