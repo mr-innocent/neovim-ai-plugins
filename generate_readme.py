@@ -92,6 +92,19 @@ _MODELS = (
 )
 
 
+class _GitHubRepositoryDetailsLicense(typing.TypedDict):
+    """A description of the "terms of use" for some git repository.
+
+    Attributes:
+        name: The name of the license, assuming it's a commonly-used license.
+        url: The page where you can learn more about the license.
+
+    """
+
+    name: str
+    url: str | None
+
+
 class _GitHubRepositoryDetailsOwner(typing.TypedDict):
     """A nested struct that describes a user or organization that owns a repository."""
 
@@ -105,6 +118,7 @@ class _GitHubRepositoryDetails(typing.TypedDict):
         default_branch: Usually ``"master"`` or ``"main"``. It's the cloning branch.
         description: The user's chosen description, if any.
         html_str: The raw URL to the repository. (The clone URL).
+        license: A description of the "terms of use" for some git repository.
         name: The name of the repository.
         owner: The user / organization that owns the repository.
         pushed_at: The user's last ``git push``. e.g. ``"2025-06-04T19:41:16Z"``.
@@ -115,6 +129,7 @@ class _GitHubRepositoryDetails(typing.TypedDict):
     default_branch: str
     description: str
     html_url: str
+    license: _GitHubRepositoryDetailsLicense | None
     name: str
     owner: _GitHubRepositoryDetailsOwner
     pushed_at: str
@@ -243,6 +258,7 @@ class _GitHubRow:
 
     description: str | None
     last_commit_date: str
+    license: _GitHubRepositoryDetailsLicense | None
     models: set[_Model]
     name: str
     star_count: int
@@ -250,6 +266,7 @@ class _GitHubRow:
     url: str
 
     def get_repository_label(self) -> str:
+        """Get a short link to the git repository."""
         return f"[{self.name}]({self.url})"
 
 
@@ -508,6 +525,7 @@ def _get_github_table_rows(
             _GitHubRow(
                 description=description,
                 last_commit_date=_get_last_commit_date(details),
+                license=details.get("license"),
                 models=models,
                 name=repository.name,
                 star_count=details["stargazers_count"],
@@ -1117,21 +1135,50 @@ def _serialize_github_table(rows: typing.Iterable[_GitHubRow]) -> str | None:
             " ".join(sorted(model.serialize_to_markdown_tag() for model in row.models))
             or "<No AI models were found>"
         )
+
+        license = "`<No license found>`"
+
+        if row.license:
+            license = _get_license_as_markdown(row.license)
+
         parts = [
             row.get_repository_label(),
             row.description or "`<No description found>`",
-            f"🌟 {row.star_count}",
+            f":star2: {row.star_count}",
             models,
             row.last_commit_date,
+            license,
         ]
         tables.append(f"| {' | '.join(parts)} |")
 
     header = [
-        "| Name | Description | Stars | Models | Updated |",
-        "| ---- | ----------- | ----- | ------ | ------- |",
+        "| :ab: Name | :notebook: Description | :star2: Stars | :robot: Models | :date: Updated | :balance_scale: License |",
+        "| --------- | ---------------------- | ------------- | -------------- | -------------- | ----------------------- |",
     ]
 
     return "\n".join(itertools.chain(header, sorted(tables)))
+
+
+def _get_license_as_markdown(license: _GitHubRepositoryDetailsLicense) -> str:
+    """Convert ``license`` to text that markdown can render.
+
+    Args:
+        license: Some raw GitHub license information. e.g. name, URL, ID, etc.
+
+    Returns:
+        The markdown to render. Usually a name and a link to learn more.
+
+    """
+    name = license["name"]
+    # NOTE: It's redundant for every row to say "Foo License" over and over again so we
+    # might as well remove it.
+    #
+    name = name.replace(" License", "")
+
+    if not license["url"]:
+        return name
+
+    return f"[{name}]({license['url']})"
 
 
 def _validate_environment() -> None:
