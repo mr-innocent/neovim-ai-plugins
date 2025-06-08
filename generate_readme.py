@@ -171,6 +171,8 @@ class _ParsedArguments:
 class _Category(str, enum.Enum):
     """The expected "types" of AI plugin."""
 
+    plugins = "plugins"  # TODO: Remove this category later. It's useless
+
     code_editting = "code-editting"
     auto_completion = "auto-completion"
     communication = "communication / chat"
@@ -740,7 +742,7 @@ def _get_plugin_urls(lines: bytes) -> list[str] | None:
 
 
 def _get_primary_category(documentation: typing.Iterable[str]) -> str:
-    return _Category.unknown
+    return _Category.plugins
 
     # TODO: Add code for this later
     # categories = lest(_Category)
